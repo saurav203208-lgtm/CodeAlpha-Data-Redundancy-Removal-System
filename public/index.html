@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Redundancy Removal System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Data Redundancy Removal System</h2>
+
+    <input type="text" id="name" placeholder="Enter Name">
+    <input type="email" id="email" placeholder="Enter Email">
+
+    <button onclick="saveData()">Save Data</button>
+
+    <p id="message"></p>
+</div>
+
+<script>
+async function saveData(){
+
+    const name=document.getElementById("name").value;
+    const email=document.getElementById("email").value;
+
+    const response=await fetch("/add-user",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({name,email})
+    });
+
+    const data=await response.json();
+
+    document.getElementById("message").innerHTML=data.message;
+}
+</script>
+
+</body>
+</html>
